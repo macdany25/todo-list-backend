@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @default(autoincrement()) @id
+  fullname String
+  email String  @unique
+  hash  String
+  hashRt  String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+  todos Todos[]
+
+  @@map("users")
+}
+
+model Todos {
+  id        Int      @default(autoincrement()) @id
+  title     String
+  description   String?
+  isactive Boolean? @default(true)
+  status  Status  @default(PENDING)
+  user    User      @relation(fields: [userid], references: [id], onDelete: Cascade)
+  userid  Int
+  tasks   Tasks[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt()
+}
+
+model Tasks {
+  id        Int      @default(autoincrement()) @id
+  title     String
+  description   String?
+  isactive Boolean? @default(true)
+  status  Status  @default(PENDING)
+  todo    Todos    @relation(fields: [todoid], references: [id], onDelete: Cascade)
+  todoid  Int
+  parent  Tasks?   @relation("parentRelation", fields: [parentid], references: [id], onDelete: SetNull) 
+  parentid  Int
+  child   Tasks?   @relation("parentRelation")
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt()
+}
+
+enum Status {
+  PENDING
+  COMPLETED
+}
