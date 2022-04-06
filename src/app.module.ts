@@ -6,13 +6,15 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { TodoModule } from './todo/todo.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [UserModule, AuthModule, PrismaModule,
   ConfigModule.forRoot({
     isGlobal: true,
   }),
-  TodoModule
+  TodoModule,
+  TaskModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,5 +7,5 @@ export class UpdateTodoDto {
 
     @IsOptional()
     @IsString()
-    description: string;
+    description?: string;
 }

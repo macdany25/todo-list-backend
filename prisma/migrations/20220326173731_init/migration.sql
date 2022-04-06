@@ -36,7 +36,7 @@ CREATE TABLE "Tasks" (
     "isactive" BOOLEAN DEFAULT true,
     "status" "Status" NOT NULL DEFAULT E'PENDING',
     "todoid" INTEGER NOT NULL,
-    "parentid" INTEGER NOT NULL,
+    "parentid" INTEGER,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

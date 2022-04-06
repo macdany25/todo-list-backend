@@ -45,8 +45,8 @@ model Tasks {
   todo    Todos    @relation(fields: [todoid], references: [id], onDelete: Cascade)
   todoid  Int
   parent  Tasks?   @relation("parentRelation", fields: [parentid], references: [id], onDelete: SetNull) 
-  parentid  Int
-  child   Tasks?   @relation("parentRelation")
+  parentid  Int?
+  child   Tasks[]   @relation("parentRelation")
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt()
 }
